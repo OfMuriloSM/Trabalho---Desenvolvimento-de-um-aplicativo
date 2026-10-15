@@ -1,0 +1,34 @@
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+coverage/
+*.log
+*.iml
+.idea/
+.vscode/
+*.keystore
+*.jks
+key.properties
+android/local.properties
+android/key.properties
+android/captures/
+android/.gradle/
+**/GeneratedPluginRegistrant.*
+# Secrets
+.env
+.env.*
+!.env.example
+supabase/.branches/
+supabase/.temp/
+.DS_Store
+
+**/.gradle/
+
+RESULTADO_VALIDACAO.txt
+
+*.obsoleto.bak

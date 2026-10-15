@@ -1,0 +1,40 @@
+name: Validacao Flutter e APK
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+jobs:
+  flutter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Java para build Android
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: '3.47.5'
+          cache: true
+      - name: Dependencias
+        run: flutter pub get
+      - name: Analise
+        run: flutter analyze
+      - name: Testes
+        run: flutter test
+      - name: Gerar APK de avaliacao
+        if: github.event_name != 'pull_request'
+        run: flutter build apk --debug
+      - name: Disponibilizar APK
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: academia-v1-apk-debug
+          path: build/app/outputs/flutter-apk/app-debug.apk
+          if-no-files-found: error
